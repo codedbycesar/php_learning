@@ -1,0 +1,11 @@
+parameters:
+  level: 6
+  paths:
+    - .
+  excludePaths:
+    - vendor/*
+  reportUnmatchedIgnoredErrors: true
+
+includes:
+  # Add extensions here if needed later, e.g. strict rules
+  # - vendor/phpstan/phpstan-strict-rules/rules.neon

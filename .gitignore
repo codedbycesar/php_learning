@@ -1,0 +1,76 @@
+# Ignorar archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de entorno local
+.env.local
+.env.*.local
+
+# Ignorar dependencias de Composer
+src/vendor/
+vendor/
+
+# Ignorar archivos de log
+*.log
+logs/
+
+# Ignorar datos de base de datos
+mysql_data/
+redis_data/
+
+# Ignorar archivos temporales
+tmp/
+temp/
+*.tmp
+
+# Ignorar archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ignorar archivos de backup
+*.bak
+*.backup
+*.old
+
+# Ignorar archivos de sistema de Docker
+.dockerignore
+volumes/
+
+# Ignorar archivos de certificados (si los hay)
+*.pem
+*.key
+*.crt
+
+# Ignorar archivos de configuración local
+local.conf
+*.local.conf
+
+# Archivos de configuración de Docker
+mysql_data/
+redis_data/
+
+# Archivos temporales y de sistema
+*.log
+*.tmp
+*.swp
+.DS_Store
+
+# Archivos de configuración de IDE
+.vscode/
+.idea/
+
+# Archivos de cache de PHP
+*.cache
+
+# Archivos de salida y build
+/build/
+
+# Archivos de pruebas
+/phpunit.xml
+coverage/
+
+# Otros archivos generados
+node_modules/

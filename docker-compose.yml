@@ -1,0 +1,89 @@
+services:
+  # PHP-FPM Service
+  php-fpm:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: php-fpm
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./src:/var/www/html
+      - ./.env:/var/www/html/.env
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+    networks:
+      - app-network
+    depends_on:
+      - mysql
+      - redis
+
+  # Nginx Service
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./src:/var/www/html
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - app-network
+    depends_on:
+      - php-fpm
+
+  # MySQL Service
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: ${DB_DATABASE}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  # Redis Service
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+      - ./docker/redis/redis.conf:/etc/redis/redis.conf
+    command: redis-server /etc/redis/redis.conf
+    networks:
+      - app-network
+
+  # Composer Service (for dependency management)
+  composer:
+    image: composer:latest
+    container_name: composer
+    volumes:
+      - ./src:/app
+    working_dir: /app
+    networks:
+      - app-network
+    profiles:
+      - tools
+
+# Networks
+networks:
+  app-network:
+    driver: bridge
+
+# Volumes
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
