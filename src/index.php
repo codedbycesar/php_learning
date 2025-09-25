@@ -1,20 +1,16 @@
 <?php
 
 require 'functions.php';
-// require 'router.php';
 require 'Database.php';
+require 'Response.php';
+require 'router.php';
 
-list($config, $username, $password) = require('config.php');
+// $id = $_GET['id'];
+// $query = "SELECT id, post FROM posts WHERE id = :id";
 
-$db = new Database($config, $username, $password);
+// $posts = $db->query($query, [':id' => $id])->fetch();
 
-$id = $_GET['id'];
-$query = $db->query("SELECT id, post FROM posts WHERE id = {$id}");
-
-dd($query);
-
-$posts = $query ? $query->fetchAll() : [];
-
+// dd($posts);
 
 // class User {
 //     public function __construct(public string $name, public string $email){
