@@ -1,9 +1,14 @@
 <?php
 
-require 'functions.php';
-require 'Database.php';
-require 'Response.php';
-require 'router.php';
+const BASE_PATH = __DIR__ . '/../';
+
+require BASE_PATH . 'functions.php';
+
+spl_autoload_register(function ($class) {
+    require base_path("Core/{$class}.php");
+});
+
+require base_path('router.php');
 
 // $id = $_GET['id'];
 // $query = "SELECT id, post FROM posts WHERE id = :id";
@@ -40,7 +45,7 @@ require 'router.php';
 //     public function addToList(string $list, string $email): void;
 // }
 
-// class PostmarkProvider implements NewsletterProvider {
+// class MailjetProvider implements NewsletterProvider {
 //     public function addToList(string $list, string $email): void {
         
 //         $cm = new PostmarkApi();
@@ -55,7 +60,7 @@ require 'router.php';
 // }
 
 // $newsletter = new Newsletter(
-//     new PostmarkProvider()
+//     new MailjetProvider()
 // );
 
 // $newsletter->subscribe(new User('cesar','cesar@example.com'));
