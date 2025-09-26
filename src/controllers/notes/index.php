@@ -1,5 +1,7 @@
 <?php
 
+use Core\Database;
+
 list($config, $username, $password) = require base_path('config.php');
 $db = new Database($config, $username, $password);
 
