@@ -6,7 +6,7 @@ require base_path('views/partials/banner.php');
 
 <main>
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-        <form method="POST">
+        <form method="POST" action="/notes">
             <div class="space-y-12">
                 <div class="border-b border-white/10 pb-12">
 

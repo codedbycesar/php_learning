@@ -14,6 +14,7 @@ require base_path('views/partials/banner.php');
         </h1>
 
         <form class="mt-6" method="POST">
+            <input type="hidden" name="_method" value="DELETE">
             <input type="hidden" name="id" value="<?= $note['id'] ?>">
             <button class="text-sm text-red-500" type="submit">Delete</button>
         </form>

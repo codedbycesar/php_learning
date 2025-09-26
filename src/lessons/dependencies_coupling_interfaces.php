@@ -4,16 +4,46 @@ class User {
     public function __construct(public string $name, public string $email){
 
     }
-}
 
-class Newsletter {
-    public function subscribe(User $user){
+    public function update(){
 
     }
 }
 
+class Newsletter {
 
-$newsletter = new Newsletter();
-$newsletter->subscribe(new User('Cesar', 'test@test.com'));
+    public function __construct(public NewsletterProvider $provider){
 
-var_dump($newsletter);
+    }
+
+    public function subscribe(User $user){
+
+        $this->provider->addToList('default', $user->email);
+
+        $user->update(['subscribed' => true]);
+    }
+}
+
+interface NewsletterProvider {
+    public function addToList(string $list, string $email): void;
+}
+
+class MailjetProvider implements NewsletterProvider {
+    public function addToList(string $list, string $email): void {
+        
+        $cm = new PostmarkApi();
+
+        $cm->addApiKey('asdgsadgasdg');
+
+        $list = $cm->lists->find($list);
+
+        $list->addToList($email);
+
+    }
+}
+
+$newsletter = new Newsletter(
+    new MailjetProvider()
+);
+
+$newsletter->subscribe(new User('cesar','cesar@example.com'));
